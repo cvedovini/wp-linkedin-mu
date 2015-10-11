@@ -8,27 +8,17 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 		$this->user_id = $user_id;
 	}
 
-	protected function _set_cache($key, $value) {
-		return update_user_meta($this->user_id, $key, $value);
+	public function set_cache($key, $value, $expires=0) {
+		return update_user_option($this->user_id, $key, $value);
 	}
 
-	protected function _get_cache($key) {
-		return get_user_meta($this->user_id, $key, true);
+	public function get_cache($key, $default=false) {
+		$value = get_user_option($key, $this->user_id);
+		return ($value !== false) ? $value : $default;
 	}
 
-	protected function _delete_cache($key) {
-		global $wpdb;
-		$options = $wpdb->get_results("SELECT meta_key FROM {$wpdb->usermeta} WHERE user_id = '{$this->user_id}' AND meta_key LIKE '$key'" );
-
-		if (empty($options)) {
-			return false;
-		} else {
-			foreach ($options as $option) {
-				delete_user_meta($this->user_id, $option->meta_key);
-			}
-
-			return true;
-		}
+	public function delete_cache($key) {
+		return delete_user_option($this->user_id, $key);
 	}
 
 	public function process_authorization($code, $state, $redirect_uri=false) {
@@ -51,13 +41,12 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 						return;
 					}
 
-					$user_id = $this->get_or_create_user($profile);
-					if ($user_id) {
-						$this->user_id = $user_id;
-						wp_logout();
+					wp_logout();
+					$this->user_id = $this->get_or_create_user($profile);
+					if ($this->user_id) {
 						wp_set_auth_cookie($this->user_id);
 						wp_set_current_user($this->user_id);
-						$this->set_cache('oauthtoken', $retcode->access_token, $retcode->expires_in);
+						$this->set_cache('wp-linkedin_oauthtoken', $retcode->access_token, $retcode->expires_in);
 						do_action('linkedin_user_connected', $profile);
 						$this->redirect($redirect_uri, 'success', __('Profile successfully updated', 'wp-linkedin-mu'));
 					} else {
@@ -75,42 +64,37 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 	}
 
 	private function get_or_create_user($profile) {
-		if (is_user_logged_in()) {
-			$user_id = get_current_user_id();
-		    return $user_id;
-		}
-
 		$user_by_id = get_users(array('meta_key' => 'wp-linkedin-mu_profile_id',
 						'meta_value' => $profile->id) );
 
-		if (count($user_by_id) > 0) {
-			update_user_meta($user_by_id[0]->ID, 'wp-linkedin-mu_profile_id', $profile->id);
+		if (count($user_by_id) == 1) {
 		    return $user_by_id[0]->ID;
+		} else {
+			$email = $profile->emailAddress;
+
+			if (email_exists($email)) {
+			    $user = get_user_by('email', $email);
+			    return $user->ID;
+			} elseif (is_email($email)) {
+				$user_info = array(
+						'user_login'	=> $email,
+						'user_email'	=> $email,
+						'user_pass'		=> wp_generate_password(15),
+						'role' 			=> get_option('wp-linkedin-mu_default_user_role', 'subscriber'));
+
+			    $user_id = wp_insert_user($user_info);
+			    update_user_meta($user_id, 'wp-linkedin-mu_profile_id', $profile->id);
+			    return $user_id;
+			}
 		}
 
-		$email = $profile->emailAddress;
-
-		if (email_exists($email)) {
-		    $user = get_user_by('email', $email);
-		    update_user_meta($user->ID, 'wp-linkedin-mu_profile_id', $profile->id);
-		    return $user->ID;
-		}
-
-		$user_info = array(
-				'user_login'	=> $email,
-				'user_email'	=> $email,
-				'user_pass'		=> wp_generate_password(15),
-				'role' 			=> get_option('wp-linkedin-mu_default_user_role', 'subscriber'));
-
-	    $user_id = wp_insert_user($user_info);
-	    update_user_meta($user_id, 'wp-linkedin-mu_profile_id', $profile->id);
-	    return $user_id;
+		return false;
 	}
 
 	public function send_invalid_token_email() {
-		$send_mail = get_user_meta($this->user_id, 'wp-linkedin_sendmail_on_token_expiry');
+		$send_mail = get_user_option('wp-linkedin_sendmail_on_token_expiry');
 
-		if ($send_mail && !$this->get_cache('invalid_token_mail_sent')) {
+		if ($send_mail && !$this->get_cache('wp-linkedin_invalid_token_mail_sent')) {
 			$user_info = get_userdata($this->user_id);
 			$blog_name = get_option('blogname');
 			$user_email = $user_info->user_email;
@@ -123,7 +107,7 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 			$message .= "\n" . __('-Thank you.', 'wp-linkedin-mu');
 
 			$sent = wp_mail($user_email, $subject, $message, $header);
-			$this->update_user_meta('wp-linkedin_invalid_token_mail_sent', $sent);
+			$this->set_cache('wp-linkedin_invalid_token_mail_sent', $sent);
 		}
 	}
 

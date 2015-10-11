@@ -5,9 +5,8 @@ Plugin URI: http://vdvn.me/pga
 Description: This plugin is an extension to the WP-LinkedIn plugin that enables showing LinkedIn profiles, recommendations and network updates for any registered user.
 Author: Claude Vedovini
 Author URI: http://vdvn.me/
-Version: 1.6.1
+Version: 1.6
 Text Domain: wp-linkedin-mu
-Domain Path: /languages
 
 # The code in this plugin is free software; you can redistribute the code aspects of
 # the plugin and/or modify the code under the terms of the GNU Lesser General
@@ -25,7 +24,7 @@ Domain Path: /languages
 # See the GNU lesser General Public License for more details.
 */
 
-define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.6.1');
+define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.6');
 define('WP_LINKEDIN_MU_PLUGIN_NAME', 'WP LinkedIn Multi-Users');
 define('WP_LINKEDIN_MU_DOWNLOAD_ID', 2137);
 define('WP_LINKEDIN_MU_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -93,9 +92,7 @@ class WPLinkedInMUPlugin {
 		require_once 'class-linkedin-connection.php';
 		$user_id = false;
 
-		if (is_admin()) {
-			$user_id = get_current_user_id();
-		} elseif (isset($GLOBALS['li_user_id'])) {
+		if (isset($GLOBALS['li_user_id'])) {
 			// This one just takes precedence over everything
 			$user_id = $GLOBALS['li_user_id'];
 			unset($GLOBALS['li_user_id']);
@@ -110,6 +107,8 @@ class WPLinkedInMUPlugin {
 				}
 
 				if ($curauth) $user_id = $curauth->ID;
+			} elseif (is_user_logged_in()) {
+				$user_id = get_current_user_id();
 			}
 
 			if (!$user_id) $user_id = get_option('wp-linkedin-mu_default_user');
@@ -250,8 +249,7 @@ class WPLinkedInMUPlugin {
 		if (isset($user_id)) {
 			$GLOBALS['li_user_id'] = $user_id;
 			$avatar_url = wp_linkedin_original_profile_picture_url();
-			unset($GLOBALS['li_user_id']);
-			if (!is_wp_error($avatar_url)) return array('url' => $avatar_url);
+			if ($avatar_url) return array('url' => $avatar_url);
 		}
 
 		return false;
@@ -259,21 +257,20 @@ class WPLinkedInMUPlugin {
 }
 
 function wp_linkedin_mu_token_button($atts=array()) {
-	if (isset($_REQUEST['oauth_status']) && isset($_REQUEST['source']) &&
-			$_REQUEST['source'] == 'token-button') {
-		$output[] = wp_linkedin_mu_filter_url();
+	$output = '';
 
+	if (isset($_GET['oauth_status'])) {
 		switch ($_GET['oauth_status']) {
 			case 'success':
 				$message = isset($_GET['oauth_message']) ? $_GET['oauth_message'] :
 					__('The access token has been successfully updated.', 'wp-linkedin');
-				$output[] = $before_success . $message . $after_success;
+				$output .= $before_success . $message . $after_success;
 								break;
 
 			case 'error':
 				$message = isset($_GET['oauth_message']) ? $_GET['oauth_message'] :
 					__('An error has occured while updating the access token, please try again.', 'wp-linkedin');
-				$output[] = $before_error . $message . $after_error;
+				$output .= $before_error . $message . $after_error;
 				break;
 		}
 	}
@@ -286,15 +283,13 @@ function wp_linkedin_mu_token_button($atts=array()) {
 				'after_error' => '</p>',
 				'before_success' => '<p class="info">',
 				'after_success' => '</p>',
-				'redir' => $_SERVER["REQUEST_URI"]
+				'redir' => false
 		), $atts, 'li_token_button');
 		extract($atts);
 
 		$GLOBALS['li_user_id'] = get_current_user_id();
 		$linkedin = wp_linkedin_connection();
-
-		// Add a query arg so we know where we are coming from
-		$redir = add_query_arg('source', 'token-button', $redir);
+		$output = '';
 
 		$authorization_url = $linkedin->get_authorization_url($redir);
 		$split_url = explode('?', $authorization_url, 2);
@@ -302,33 +297,32 @@ function wp_linkedin_mu_token_button($atts=array()) {
 		$params = array();
 		parse_str($split_url[1], $params);
 
-		$output[] = '<form action="'.$action_url.'" method="get">';
-		foreach ($params as $k => $v) $output[] = '<input type="hidden" name="'.esc_attr($k).'" value="'.esc_attr($v).'"/>';
-		$output[] = '<button type="submit" class="linkedin-button">'.$button_label.'</button></form>';
+		$output .= '<form action="'.$action_url.'" method="get">';
+		foreach ($params as $k => $v) $output .= '<input type="hidden" name="'.esc_attr($k).'" value="'.esc_attr($v).'"/>';
+		$output .= '<button type="submit" class="linkedin-button">'.$button_label.'</button></form>';
 
 		unset($GLOBALS['li_user_id']);
 	}
 
-	if (!empty($output)) return implode($output);
+	return $output;
 }
 
 
 function wp_linkedin_mu_login_button($atts=array()) {
-	if (isset($_REQUEST['oauth_status']) && isset($_REQUEST['source']) &&
-			$_REQUEST['source'] == 'login-button') {
-		$output[] = wp_linkedin_mu_filter_url();
+	$output = '';
 
+	if (isset($_GET['oauth_status'])) {
 		switch ($_GET['oauth_status']) {
 			case 'success':
 				$message = isset($_GET['oauth_message']) ? $_GET['oauth_message'] :
 					__('The access token has been successfully updated.', 'wp-linkedin');
-				$output[] = $before_success . $message . $after_success;
+				$output .= $before_success . $message . $after_success;
 				break;
 
 			case 'error':
 				$message = isset($_GET['oauth_message']) ? $_GET['oauth_message'] :
 					__('An error has occured while updating the access token, please try again.', 'wp-linkedin');
-				$output[] = $before_error . $message . $after_error;
+				$output .= $before_error . $message . $after_error;
 				break;
 		}
 	}
@@ -341,14 +335,11 @@ function wp_linkedin_mu_login_button($atts=array()) {
 				'after_error' => '</p>',
 				'before_success' => '<p class="info">',
 				'after_success' => '</p>',
-				'redir' => $_SERVER["REQUEST_URI"]
+				'redir' => false
 		), $atts, 'li_login_button');
 		extract($atts);
 
 		$linkedin = wp_linkedin_connection();
-
-		// Add a query arg so we know where we are coming from
-		$redir = add_query_arg('source', 'login-button', $redir);
 
 		$authorization_url = $linkedin->get_authorization_url($redir);
 		$split_url = explode('?', $authorization_url, 2);
@@ -356,34 +347,16 @@ function wp_linkedin_mu_login_button($atts=array()) {
 		$params = array();
 		parse_str($split_url[1], $params);
 
-		$output[] = '<form action="'.$action_url.'" method="get">';
-		$output[] = '<input type="hidden" name="generator" value="login-button"/>';
-		foreach ($params as $k => $v) $output[] = '<input type="hidden" name="'.esc_attr($k).'" value="'.esc_attr($v).'"/>';
-		$output[] = '<button type="submit" class="linkedin-button">'.$button_label.'</button></form>';
+		$output .= '<form action="'.$action_url.'" method="get">';
+		foreach ($params as $k => $v) $output .= '<input type="hidden" name="'.esc_attr($k).'" value="'.esc_attr($v).'"/>';
+		$output .= '<button type="submit" class="linkedin-button">'.$button_label.'</button></form>';
 
 		unset($GLOBALS['li_user_id']);
 	}
 
-	if (!empty($output)) return implode($output);
+	return $output;
 }
 
-function wp_linkedin_mu_filter_url() {
-	$removable_query_args = apply_filters('removable_query_args', array('source'));
-
-	if (empty( $removable_query_args)) return;
-
-	// Ensure we're using an absolute URL.
-	$current_url  = set_url_scheme('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-	$filtered_url = remove_query_arg($removable_query_args, $current_url);
-
-	return <<<EOT
-<script>
-	if (window.history.replaceState) {
-		window.history.replaceState( null, null, '$filtered_url' + window.location.hash );
-	}
-</script>
-EOT;
-}
 
 /*******************************************************************************
  *

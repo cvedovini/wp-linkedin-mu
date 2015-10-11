@@ -43,8 +43,10 @@ class WPLinkedInMUAdmin {
 	}
 
 	function show_user_profile_section() {
-		$clearcache_url = add_query_arg(array('action' => 'clear_cache',
-				'r' => $_SERVER['REQUEST_URI']), admin_url('admin.php')); ?>
+		if (isset($_GET['clear_cache'])) {
+			$this->linkedin->clear_cache(); ?>
+			<div class="updated"><p><strong><?php _e('The cache has been cleared.', 'wp-linkedin'); ?></strong></p></div><?php
+		} ?>
 		<h3><?php _e("LinkedIn Options", "wp-linkedin-mu"); ?></h3>
 
 		<table class="form-table">
@@ -59,41 +61,19 @@ class WPLinkedInMUAdmin {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th rowspan="2" scope="row">
-					<?php _e('Tools', 'wp-linkedin'); ?>
-				</th>
+				<th scope="row"></th>
 				<td>
-					<div style="max-width:500px">
-					<span class="submit"><a href="<?php echo $this->linkedin->get_authorization_url(); ?>" class="button button-primary"><?php _e('Regenerate LinkedIn Access Token', 'wp-linkedin'); ?></a></span>
-					<br><em><?php _e('You need to regenerate the token when it has expired, when you installed a new extension for this plugin or when LinkedIn grants you new rights.', 'wp-linkedin'); ?></em>
-					</div>
+					<span class="submit"><a href="<?php echo $this->linkedin->get_authorization_url(); ?>" class="button button-primary"><?php _e('Regenerate LinkedIn Access Token', 'wp-linkedin-mu'); ?></a></span>
+					<span class="submit"><a href="<?php echo admin_url('profile.php?clear_cache'); ?>" class="button button-primary"><?php _e('Clear the Cache', 'wp-linkedin-mu'); ?></a></span>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<div style="max-width:500px">
-					<span class="submit"><a href="<?php echo $clearcache_url; ?>" class="button button-primary"><?php _e('Clear the Cache', 'wp-linkedin'); ?></a></span>
-					<br><em><?php _e('The content of your profile is locally cached for 12 hours, use that button if you want to force the plugin to reload your profile.', 'wp-linkedin'); ?></em>
-					</div>
-				</td>
-			</tr>
-			<?php if (LI_DEBUG): ?>
-			<tr valign="top">
-				<th scope="row">
-					<?php _e('Your token', 'wp-linkedin-mu'); ?>
-				</th>
-				<td>
-					<input readonly type="text" class="regular-text" value="<?php esc_attr_e($this->linkedin->get_access_token()); ?>" />
-				</td>
-			</tr>
-			<?php endif; ?>
 		</table><?php
 	}
 
 	function save_user_profile_section($user_id) {
 		if (!current_user_can('edit_user', $user_id)) return false;
 		if (isset($_POST['wp-linkedin_sendmail_on_token_expiry'])) {
-			update_user_meta($user_id, 'wp-linkedin_sendmail_on_token_expiry',
+			update_user_option($user_id, 'wp-linkedin_sendmail_on_token_expiry',
 					$_POST['wp-linkedin_sendmail_on_token_expiry']);
 		}
 	}
@@ -129,9 +109,9 @@ class WPLinkedInMUAdmin {
 		if (current_user_can('install_plugins')) {
 			if (!function_exists('wp_linkedin_connection')): ?>
 				<div class="error"><p><?php _e('The WP LinkedIn Multi-Users plugin needs the WP LinkedIn plugin to be installed and activated.', 'wp-linkedin-mu'); ?></p></div>
-			<?php elseif (version_compare(WP_LINKEDIN_VERSION, '2.5') < 0):
+			<?php elseif (version_compare(WP_LINKEDIN_VERSION, '2.3') < 0):
 				$format = __('The WP LinkedIn Multi-Users plugin requires at least version %s of the WP-LinkedIn plugin, current installed version is %s', 'wp-linkedin-mu');
-				$error = sprintf($format, '2.5', WP_LINKEDIN_VERSION); ?>
+				$error = sprintf($format, '2.3', WP_LINKEDIN_VERSION); ?>
 				<div class="error"><p><?php echo $error; ?></p></div>
 			<?php endif;
 		}
