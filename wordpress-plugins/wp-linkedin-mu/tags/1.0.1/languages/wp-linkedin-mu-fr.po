@@ -1,0 +1,165 @@
+# Copyright (C) 2013 WP LinkedIn Multi-Users
+# This file is distributed under the same license as the WP LinkedIn Multi-Users package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP LinkedIn MU\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-linkedin-mu\n"
+"POT-Creation-Date: 2013-12-24 12:36:02+00:00\n"
+"PO-Revision-Date: 2013-12-24 19:40+0700\n"
+"Last-Translator: \n"
+"Language-Team: fr <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-POOTLE-MTIME: 1387888721.0\n"
+
+#: class-admin.php:12
+msgid "Default user"
+msgstr "Utilisateur par défaut"
+
+#: class-admin.php:29
+msgid "Settings"
+msgstr "Réglages"
+
+#: class-admin.php:50
+msgid "Invalid state"
+msgstr "État invalide"
+
+#: class-admin.php:56
+msgid "LinkedIn Options"
+msgstr "Options LinkedIn"
+
+#: class-admin.php:61
+msgid "Send mail on token expiry"
+msgstr "Envoyer un e-mail à l'expiration du token"
+
+#: class-admin.php:66
+msgid ""
+"Check this option if you want the plugin to send you an email when the token "
+"has expired or is invalid."
+msgstr ""
+"Cochez cette option si vous voulez que l'extension vous envoie un e-mail "
+"lorsque le jeton a expiré ou n'est pas valide."
+
+#: class-admin.php:72
+msgid "Regenerate LinkedIn Access Token"
+msgstr "Régénérer le jeton d'accès à LinkedIn"
+
+#: class-admin.php:73
+msgid "Clear the Cache"
+msgstr "Vider le cache"
+
+#: class-admin.php:91
+msgid "None"
+msgstr "Aucun"
+
+#: class-admin.php:96
+msgid ""
+"Select the user profile to use when the plugin cannot determine whose data "
+"to show."
+msgstr ""
+"Sélectionner le profil à utiliser quand l'extension ne peut déterminer "
+"quelles données afficher."
+
+#: class-admin.php:102
+msgid ""
+"The WP LinkedIn Multi-Users plugin needs the WP LinkedIn plugin to be "
+"installed and activated."
+msgstr ""
+"L'extension WP LinkedIn Multi-Users à besoin que l'extension WP LinkedIn "
+"soit installée et activée pour pouvoir fonctionner."
+
+#: class-linkedin-connection.php:36
+msgid "Invalid or expired LinkedIn access token"
+msgstr "Jeton d'accès non-valide ou expiré"
+
+#: class-linkedin-connection.php:38
+msgid ""
+"The access token for the WP LinkedIn plugin is either invalid or has "
+"expired, please click on the following link to renew it."
+msgstr ""
+"Le jeton d'accès pour l'extension WP LinkedIn est soit invalide soit expiré, "
+"merci de cliquer sur le lien suivant afin de le renouveler."
+
+#: class-linkedin-connection.php:40
+msgid "This link will only be valid for a limited period of time."
+msgstr "Ce lien ne sera valide que pour une période de temps limitée."
+
+#: class-linkedin-connection.php:41
+msgid "-Thank you."
+msgstr "-Merci."
+
+#: updater.php:28
+msgid "License Keys"
+msgstr "Clés de licence "
+
+#: updater.php:30
+msgid "Multi-users extension"
+msgstr "Extension multi-utilisateurs"
+
+#: updater.php:41
+msgid "Active"
+msgstr "Active"
+
+#: updater.php:43
+msgid "Deactivate License"
+msgstr "Désactiver la licence"
+
+#: updater.php:46
+msgid "Activate License"
+msgstr "Activer la licence"
+
+#: wp-linkedin-mu.php:59
+msgid ""
+"You must provide one of the following attributes for the li_user shortcode "
+"to work: %s."
+msgstr ""
+"Vous devez fournir un des attributs suivants pour que le shortcode li_user "
+"fonctionne: %s"
+
+#: wp-linkedin-mu.php:71
+msgid "Cannot find a user whose %1$s is %2$s"
+msgstr "L'utilisateur dont %1$s est %2$s est introuvable"
+
+#. Plugin Name of the plugin/theme
+msgid "WP LinkedIn Multi-Users"
+msgstr "WP LinkedIn Multi-Utilisateurs"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"http://vedovini.net/plugins/?"
+"utm_source=wordpress&utm_medium=plugin&utm_campaign=wp-linkedin-mu"
+msgstr ""
+"http://vedovini.net/plugins/?"
+"utm_source=wordpress&utm_medium=plugin&utm_campaign=wp-linkedin-mu"
+
+#. Description of the plugin/theme
+msgid ""
+"This plugin is an extension to the WP-LinkedIn plugin that enables showing "
+"LinkedIn profiles, recommendations and network updates for any registered "
+"user."
+msgstr ""
+"Cette extension étend les fonctionnalités de WP-LinkedIn en permettant "
+"d'afficher le profil LinkedIn, les recommandations et les mises-à-jour de "
+"n'importe quel utilisateur enregistré."
+
+#. Author of the plugin/theme
+msgid "Claude Vedovini"
+msgstr "Claude Vedovini"
+
+#. Author URI of the plugin/theme
+msgid ""
+"http://vedovini.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=wp-"
+"linkedin-mu"
+msgstr ""
+"http://vedovini.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=wp-"
+"linkedin-mu"
+
+#~ msgid "Multi-users License Key"
+#~ msgstr "Clé de licence multi-utilisateurs"
+
+#~ msgid "Cannot find a user whose %s is %s"
+#~ msgstr "L'utilisateur dont %s est %s est introuvable"

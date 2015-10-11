@@ -1,0 +1,127 @@
+# Translation of WP LinkedIn for Companies in Portuguese (Brazil)
+# This file is distributed under the same license as the WP LinkedIn for Companies package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2015-09-28 16:25:19+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: WP LinkedIn for Companies\n"
+
+#: class-admin.php:8
+msgid "Company fields"
+msgstr "Campos da Companhia"
+
+#: class-admin.php:16
+msgid "Settings"
+msgstr "Configurações"
+
+#: class-admin.php:28
+msgid "Comma separated list of fields to show on a company profile."
+msgstr "Comma lista de campos separados para mostrar em um perfil da empresa."
+
+#: class-admin.php:29
+msgid "You can overide this setting in the shortcode with the `fields` attribute."
+msgstr "Você pode substituir esta configuração no shortcode com el atributo 'campos'"
+
+#: class-admin.php:30
+msgid "See the <a href=\"https://developer.linkedin.com/documents/company-lookup-api-and-fields\" target=\"_blank\">LinkedIn API documentation</a> for the complete list of fields."
+msgstr "Consulte a <a href=\"https://developer.linkedin.com/documents/company-lookup-api-and-fields\" target=\"_blank\">documentação da API do LinkedIn</a> para a lista completa de campos."
+
+#: class-admin.php:36
+msgid "The WP LinkedIn for Companies plugin needs the WP LinkedIn plugin to be installed and activated."
+msgstr "O LinkedIn WP para Empresas plugin precisa o plugin WP LinkedIn para ser instalado e ativado."
+
+#: class-admin.php:38
+msgid "The WP LinkedIn for Company plugin requires at least version %s of the WP-LinkedIn plugin, current installed version is %s"
+msgstr "O WP LinkedIn para Plugin Empresa exige pelo menos a versão%s do plugin WP-LinkedIn, versão atual instalada é%s"
+
+#: class-company-card-widget.php:6
+msgid "Company Card"
+msgstr "Card Company"
+
+#: class-company-card-widget.php:7
+msgid "A widget displaying a company card"
+msgstr "Um widget exibindo um cartão de empresa"
+
+#: class-company-card-widget.php:50 class-company-updates-widget.php:52
+msgid "Title:"
+msgstr "Título"
+
+#: class-company-card-widget.php:54 class-company-updates-widget.php:56
+msgid "Company:"
+msgstr "Empresa:"
+
+#: class-company-card-widget.php:62
+msgid "Max length of summary (in char):"
+msgstr "Comprimento máximo do resumo (no char):"
+
+#: class-company-card-widget.php:64
+msgid "Specify '0' to hide the summary."
+msgstr "Especificar '0' para ocultar o resumo"
+
+#: class-company-updates-widget.php:6
+msgid "Company Updates"
+msgstr "Atualizações empresa"
+
+#: class-company-updates-widget.php:7
+msgid "A widget displaying a company updates"
+msgstr "Um widget exibindo uma atualizações da empresa"
+
+#: class-company-updates-widget.php:64
+msgid "Number of updates to show:"
+msgstr "Número de atualizações para mostrar:"
+
+#: class-company-updates-widget.php:68
+msgid "Type of updates to show:"
+msgstr "Tipo de atualizações para mostrar:"
+
+#: class-company-updates-widget.php:70
+msgid "Status Updates"
+msgstr "Atualizações de status"
+
+#: class-company-updates-widget.php:71
+msgid "Job Postings"
+msgstr "Postagens de emprego"
+
+#: templates/company-profile.php:18
+msgid "%s employees"
+msgstr "empregados%s"
+
+#: templates/company-profile.php:29
+msgid "Description"
+msgstr "Descrição"
+
+#: templates/company-profile.php:36
+msgid "Specialties"
+msgstr "Especialidades"
+
+#: templates/company-profile.php:48
+msgid "Headquarters"
+msgstr "Sede"
+
+#: templates/company-updates.php:29
+msgid "No updates"
+msgstr "Não há atualizações"
+
+#. Plugin Name of the plugin/theme
+msgid "WP LinkedIn for Companies"
+msgstr "WP LinkedIn para empresas"
+
+#. Plugin URI of the plugin/theme
+msgid "http://vdvn.me/pga"
+msgstr "http://vdvn.me/pga"
+
+#. Description of the plugin/theme
+msgid "This plugin enables you to display company's profiles."
+msgstr "Este plugin permite que você exiba perfis da empresa."
+
+#. Author of the plugin/theme
+msgid "Claude Vedovini"
+msgstr "Claude Vedovini"
+
+#. Author URI of the plugin/theme
+msgid "http://vdvn.me/"
+msgstr "http://vdvn.me/"
