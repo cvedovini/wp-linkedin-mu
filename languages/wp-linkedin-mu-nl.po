@@ -1,154 +1,159 @@
-# Translation of WP LinkedIn Multi-Users in Dutch
+# Copyright (C) 2013 WP LinkedIn Multi-Users
 # This file is distributed under the same license as the WP LinkedIn Multi-Users package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-28 16:21:27+0000\n"
+"Project-Id-Version: WP-LinkedIn MU\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-linkedin-mu\n"
+"POT-Creation-Date: 2013-12-24 12:36:02+00:00\n"
+"PO-Revision-Date: 2013-12-27 08:58+0700\n"
+"Last-Translator: \n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1100\n"
-"Project-Id-Version: WP LinkedIn Multi-Users\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-POOTLE-MTIME: 1388093588.0\n"
 
 #: class-admin.php:12
 msgid "Default user"
 msgstr "Standaardgebruiker"
 
-#: class-admin.php:14
-msgctxt "On the settings page"
-msgid "Connect with LinkedIn"
-msgstr "Contact maken met LinkedIn"
-
-#: class-admin.php:16
-msgid "Default user role"
-msgstr "Standaardgebruiker rol"
-
-#: class-admin.php:34
+#: class-admin.php:29
 msgid "Settings"
 msgstr "Instellingen"
 
-#: class-admin.php:46
-msgid "The cache has been cleared."
-msgstr "De cache is gewist."
-
-#: class-admin.php:48
-msgid "LinkedIn Options"
-msgstr "LinkedIn-opties"
-
-#: class-admin.php:53
-msgid "Send mail on token expiry"
-msgstr "Verzend e-mail wanneer token verlopen is"
-
-#: class-admin.php:58
-msgid "Check this option if you want the plugin to send you an email when the token has expired or is invalid."
-msgstr "Schakel deze optie in wanneer je wilt dat de plug-in je een e-mail stuurt wanneer de token verlopen of ongeldig is."
-
-#: class-admin.php:64 wp-linkedin-mu.php:229
-msgid "Regenerate LinkedIn Access Token"
-msgstr "Regenereer LinkedIn-toegangstoken"
-
-#: class-admin.php:65
-msgid "Clear the Cache"
-msgstr "Cache wissen"
-
-#: class-admin.php:83
-msgid "None"
-msgstr "Geen"
-
-#: class-admin.php:88
-msgid "Select the user profile to use when the plugin cannot determine whose data to show."
-msgstr "Selecteer het gebruikersprofiel om te gebruiken wanneer de plug-in niet kan bepalen welke gegevens getoond moeten worden."
-
-#: class-admin.php:95
-msgid "Check this option to allow users to register and log in using LinkedIn."
-msgstr "Controleer deze optie om gebruikers in staat om te registreren en in te loggen met behulp van LinkedIn."
-
-#: class-admin.php:103
-msgid "Select the role that will be assigned to the users the first time they log in using LinkedIn."
-msgstr "Selecteer de rol die wordt toegekend aan de gebruikers de eerste keer dat ze inloggen met behulp van LinkedIn."
-
-#: class-admin.php:109
-msgid "The WP LinkedIn Multi-Users plugin needs the WP LinkedIn plugin to be installed and activated."
-msgstr "Voor de WP LinkedIn Multi-Users plug-in is het nodig om de WP LinkedIn plug-in te installeren en te activeren."
-
-#: class-admin.php:111
-msgid "The WP LinkedIn Multi-Users plugin requires at least version %s of the WP-LinkedIn plugin, current installed version is %s"
-msgstr "De WP LinkedIn Multi-Gebruikers plugin vereist minimaal versie%s van de WP-LinkedIn plugin, de huidige geïnstalleerde versie is%s"
-
-#: class-linkedin-connection.php:38
-msgid "Cannot fetch profile"
-msgstr "Kan niet halen profiel"
-
-#: class-linkedin-connection.php:48
-msgid "Profile successfully updated"
-msgstr "Profiel bijgewerkt"
-
-#: class-linkedin-connection.php:50
-msgid "Cannot find or create user"
-msgstr "Niet kunt vinden of te creëren gebruiker"
-
-#: class-linkedin-connection.php:56
+#: class-admin.php:50
 msgid "Invalid state"
 msgstr "Ongeldige status"
 
-#: class-linkedin-connection.php:108
+#: class-admin.php:56
+msgid "LinkedIn Options"
+msgstr "LinkedIn-opties"
+
+#: class-admin.php:61
+msgid "Send mail on token expiry"
+msgstr "Verzend e-mail wanneer token verlopen is"
+
+#: class-admin.php:66
+msgid ""
+"Check this option if you want the plugin to send you an email when the token "
+"has expired or is invalid."
+msgstr ""
+"Schakel deze optie in wanneer je wilt dat de plug-in je een e-mail stuurt "
+"wanneer de token verlopen of ongeldig is."
+
+#: class-admin.php:72
+msgid "Regenerate LinkedIn Access Token"
+msgstr "Regenereer LinkedIn-toegangstoken"
+
+#: class-admin.php:73
+msgid "Clear the Cache"
+msgstr "Cache wissen"
+
+#: class-admin.php:91
+msgid "None"
+msgstr "Geen"
+
+#: class-admin.php:96
+msgid ""
+"Select the user profile to use when the plugin cannot determine whose data "
+"to show."
+msgstr ""
+"Selecteer het gebruikersprofiel om te gebruiken wanneer de plug-in niet kan "
+"bepalen welke gegevens getoond moeten worden."
+
+#: class-admin.php:102
+msgid ""
+"The WP LinkedIn Multi-Users plugin needs the WP LinkedIn plugin to be "
+"installed and activated."
+msgstr ""
+"Voor de WP LinkedIn Multi-Users plug-in is het nodig om de WP LinkedIn plug-"
+"in te installeren en te activeren."
+
+#: class-linkedin-connection.php:36
 msgid "Invalid or expired LinkedIn access token"
 msgstr "Ongeldig of verlopen LinkedIn-toegangstoken"
 
-#: class-linkedin-connection.php:110
-msgid "The access token for the WP LinkedIn plugin is either invalid or has expired, please click on the following link to renew it."
-msgstr "De toegangstoken voor de WP LinkedIn plug-in is ongeldig of verlopen. Klik op de volgende link om de token te vernieuwen."
+#: class-linkedin-connection.php:38
+msgid ""
+"The access token for the WP LinkedIn plugin is either invalid or has "
+"expired, please click on the following link to renew it."
+msgstr ""
+"De toegangstoken voor de WP LinkedIn plug-in is ongeldig of verlopen. Klik "
+"op de volgende link om de token te vernieuwen."
 
-#: class-linkedin-connection.php:112
+#: class-linkedin-connection.php:40
 msgid "This link will only be valid for a limited period of time."
 msgstr "Deze link is maar voor een beperkte periode geldig."
 
-#: class-linkedin-connection.php:113
+#: class-linkedin-connection.php:41
 msgid "-Thank you."
 msgstr "-Bedankt."
 
-#: wp-linkedin-mu.php:171 wp-linkedin-mu.php:346
+#: updater.php:28
+msgid "License Keys"
+msgstr "Licentiesleutels"
+
+#: updater.php:30
+msgid "Multi-users extension"
+msgstr "Multi-user extensie"
+
+#: updater.php:41
+msgid "Active"
+msgstr "Actief"
+
+#: updater.php:43
+msgid "Deactivate License"
+msgstr "Licentie deactiveren"
+
+#: updater.php:46
+msgid "Activate License"
+msgstr "Licentie activeren"
+
+#: wp-linkedin-mu.php:59
+msgid ""
+"You must provide one of the following attributes for the li_user shortcode "
+"to work: %s."
+msgstr ""
+"Je moet een van de volgende attributen voor de li_user shortcode opgeven om "
+"het te laten werken: %s."
+
+#: wp-linkedin-mu.php:71
 msgid "Cannot find a user whose %1$s is %2$s"
 msgstr "Kan geen gebruiker vinden wiens %1$s is %2$s"
-
-#: wp-linkedin-mu.php:203
-msgctxt "On the login page"
-msgid "Connect with LinkedIn"
-msgstr "Contact maken met LinkedIn"
-
-#: wp-linkedin-mu.php:214 wp-linkedin-mu.php:266
-msgid "The access token has been successfully updated."
-msgstr "De toegang token is succesvol bijgewerkt."
-
-#: wp-linkedin-mu.php:220 wp-linkedin-mu.php:272
-msgid "An error has occured while updating the access token, please try again."
-msgstr "Er is een fout opgetreden tijdens het bijwerken van het access token, probeer het opnieuw."
-
-#: wp-linkedin-mu.php:281
-msgctxt "On the login button"
-msgid "Connect with LinkedIn"
-msgstr "Contact maken met LinkedIn"
-
-#: wp-linkedin-mu.php:334
-msgid "You must provide one of the following attributes for the li_user shortcode to work: %s."
-msgstr "Je moet een van de volgende attributen voor de li_user shortcode opgeven om het te laten werken: %s."
 
 #. Plugin Name of the plugin/theme
 msgid "WP LinkedIn Multi-Users"
 msgstr "WP LinkedIn Multi-Users"
 
 #. Plugin URI of the plugin/theme
-msgid "http://vdvn.me/pga"
-msgstr "http://vdvn.me/pga"
+msgid ""
+"http://vedovini.net/plugins/?"
+"utm_source=wordpress&utm_medium=plugin&utm_campaign=wp-linkedin-mu"
+msgstr ""
+"http://vedovini.net/plugins/?"
+"utm_source=wordpress&utm_medium=plugin&utm_campaign=wp-linkedin-mu"
 
 #. Description of the plugin/theme
-msgid "This plugin is an extension to the WP-LinkedIn plugin that enables showing LinkedIn profiles, recommendations and network updates for any registered user."
-msgstr "Deze plug-in is een extensie van de WP-LinkedIn plug-in die het mogelijk maakt om LinkedIn-profielen, aanbevelingen en netwerkupdates voor elke geregistreerde gebruiker weer te geven. "
+msgid ""
+"This plugin is an extension to the WP-LinkedIn plugin that enables showing "
+"LinkedIn profiles, recommendations and network updates for any registered "
+"user."
+msgstr ""
+"Deze plug-in is een extensie van de WP-LinkedIn plug-in die het mogelijk "
+"maakt om LinkedIn-profielen, aanbevelingen en netwerkupdates voor elke "
+"geregistreerde gebruiker weer te geven. "
 
 #. Author of the plugin/theme
 msgid "Claude Vedovini"
 msgstr "Claude Vedovini"
 
 #. Author URI of the plugin/theme
-msgid "http://vdvn.me/"
-msgstr "http://vdvn.me/"
+msgid ""
+"http://vedovini.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=wp-"
+"linkedin-mu"
+msgstr ""
+"http://vedovini.net/?utm_source=wordpress&utm_medium=plugin&utm_campaign=wp-"
+"linkedin-mu"

@@ -3,10 +3,12 @@ Author: Claude Vedovini
 Contributors: cvedovini
 Donate link: http://paypal.me/vdvn
 Tags: linkedin,resume,recommendations,profile,multi-users
-Tested up to: 4.3.1
-Stable tag: 1.6.1
+Requires at least: 2.7
+Tested up to: 4.3
+Stable tag: 1.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
 
 == Description ==
 
@@ -20,7 +22,7 @@ home page or archive pages) you can configure it to either show nothing or a
 specific user's data.
 
 This plugin also extends the `[li_profile]` shortcode and other shortcodes with
-a new set of attributes that allow to specify which user's profile to show.
+a new set of attributes that allow to secify which user's profile to show.
 
 For example:
 
@@ -82,8 +84,6 @@ NOTE: If the user is already connected the button will not show up.
 The `[li_user]` shortcode has been deprecated and the recommended method
 is now to use the extended attributes to explicitly set the user.
 
-License purchase includes 1 year of product support and updates.
-
 
 == Installation ==
 
@@ -91,25 +91,9 @@ This plugin follows the [standard WordPress installation method](http://codex.wo
 
 1. Upload the `wp-linkedin-mu` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Go to the plugin's settings page, enter your license key in the 'extensions'
-	tab and press the 'Save Changes' button
 
 
 == Changelog ==
-
-= Version 1.6.1 =
-- Small enhancements in error handling
-
-= Version 1.6 =
-- New actions `linkedin_connect_fields` and `linkedin_user_connected` to allow
-processing of the user profile just after a user connected using LinkedIn
-- When possible retrieve the user's avatar from LinkedIn
-- Bug fix when 'connect with LinkedIn' is activated
-
-= Version 1.5 =
-- Better admin notices
-- Improved license management
-- Updated all translations
 
 = Version 1.4 =
 - Added the capabiliy to allow users to connect using LinkedIn
