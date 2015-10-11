@@ -2,38 +2,31 @@
 
 class WPLinkedInMUAdmin {
 
-	function __construct() {
+	function WPLinkedInMUAdmin() {
 		if (function_exists('wp_linkedin_connection')) {
 			$this->linkedin = wp_linkedin_connection();
-			add_action('admin_menu', array(&$this, 'admin_menu'), 20);
+			$this->unregister_settings();
 			add_action('show_user_profile', array(&$this, 'show_user_profile_section'));
 			add_action('personal_options_update', array(&$this, 'save_user_profile_section'));
+			$this->add_settings_field('wp-linkedin-mu_default_user',
+					__('Default user', 'wp-linkedin-mu'), 'settings_field_default_user');
 		}
-
-		add_filter('plugin_action_links_' . WP_LINKEDIN_MU_PLUGIN_BASENAME, array(&$this, 'add_settings_link'));
+		add_filter('plugin_action_links_wp-linkedin-mu/wp-linkedin-mu.php', array(&$this, 'add_settings_link'));
 		add_action('admin_notices', array(&$this, 'admin_notices'));
-		add_action('network_admin_notices', array(&$this, 'admin_notices'));
 	}
 
-	function admin_menu() {
+	function unregister_settings() {
 		// Remove the "send mail" option from the general settings so we can have our own, per-user, one
 		// not working: unregister_setting('wp-linkedin', 'wp-linkedin_sendmail_on_token_expiry');
 		global $new_whitelist_options, $wp_settings_fields;
 		$pos = array_search('wp-linkedin_sendmail_on_token_expiry', (array) $new_whitelist_options['wp-linkedin']);
 		if ($pos !== false) unset($new_whitelist_options['wp-linkedin'][$pos] );
 		unset($wp_settings_fields['wp-linkedin']['default']['wp-linkedin_sendmail_on_token_expiry']);
-
-		$this->add_settings_field('wp-linkedin-mu_default_user',
-				__('Default user', 'wp-linkedin-mu'), 'settings_field_default_user');
-		$this->add_settings_field('wp-linkedin-mu_connect_with_linkedin',
-				_x('Connect with LinkedIn', 'On the settings page', 'wp-linkedin-mu'), 'settings_field_connect_with_linkedin');
-		$this->add_settings_field('wp-linkedin-mu_default_user_role',
-				__('Default user role', 'wp-linkedin-mu'), 'settings_field_default_user_role');
 	}
 
 	function add_settings_link($links) {
-		$url = admin_url('options-general.php?page=wp-linkedin');
-		$links['settings'] = '<a href="' . $url . '">' . __('Settings') . '</a>';
+		$url = site_url('/wp-admin/options-general.php?page=wp-linkedin');
+		$links[] = '<a href="' . $url . '">' . __('Settings') . '</a>';
 		return $links;
 	}
 
@@ -43,8 +36,10 @@ class WPLinkedInMUAdmin {
 	}
 
 	function show_user_profile_section() {
-		$clearcache_url = add_query_arg(array('action' => 'clear_cache',
-				'r' => $_SERVER['REQUEST_URI']), admin_url('admin.php')); ?>
+		if (isset($_GET['clear_cache'])) {
+			$this->linkedin->clear_cache(); ?>
+			<div class="updated"><p><strong><?php _e('The cache has been cleared.', 'wp-linkedin'); ?></strong></p></div><?php
+		} ?>
 		<h3><?php _e("LinkedIn Options", "wp-linkedin-mu"); ?></h3>
 
 		<table class="form-table">
@@ -59,41 +54,19 @@ class WPLinkedInMUAdmin {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th rowspan="2" scope="row">
-					<?php _e('Tools', 'wp-linkedin'); ?>
-				</th>
+				<th scope="row"></th>
 				<td>
-					<div style="max-width:500px">
-					<span class="submit"><a href="<?php echo $this->linkedin->get_authorization_url(); ?>" class="button button-primary"><?php _e('Regenerate LinkedIn Access Token', 'wp-linkedin'); ?></a></span>
-					<br><em><?php _e('You need to regenerate the token when it has expired, when you installed a new extension for this plugin or when LinkedIn grants you new rights.', 'wp-linkedin'); ?></em>
-					</div>
+					<span class="submit"><a href="<?php echo $this->linkedin->get_authorization_url(); ?>" class="button button-primary"><?php _e('Regenerate LinkedIn Access Token', 'wp-linkedin-mu'); ?></a></span>
+					<span class="submit"><a href="<?php echo site_url('/wp-admin/profile.php?clear_cache'); ?>" class="button button-primary"><?php _e('Clear the Cache', 'wp-linkedin-mu'); ?></a></span>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<div style="max-width:500px">
-					<span class="submit"><a href="<?php echo $clearcache_url; ?>" class="button button-primary"><?php _e('Clear the Cache', 'wp-linkedin'); ?></a></span>
-					<br><em><?php _e('The content of your profile is locally cached for 12 hours, use that button if you want to force the plugin to reload your profile.', 'wp-linkedin'); ?></em>
-					</div>
-				</td>
-			</tr>
-			<?php if (LI_DEBUG): ?>
-			<tr valign="top">
-				<th scope="row">
-					<?php _e('Your token', 'wp-linkedin-mu'); ?>
-				</th>
-				<td>
-					<input readonly type="text" class="regular-text" value="<?php esc_attr_e($this->linkedin->get_access_token()); ?>" />
-				</td>
-			</tr>
-			<?php endif; ?>
 		</table><?php
 	}
 
 	function save_user_profile_section($user_id) {
 		if (!current_user_can('edit_user', $user_id)) return false;
 		if (isset($_POST['wp-linkedin_sendmail_on_token_expiry'])) {
-			update_user_meta($user_id, 'wp-linkedin_sendmail_on_token_expiry',
+			update_user_option($user_id, 'wp-linkedin_sendmail_on_token_expiry',
 					$_POST['wp-linkedin_sendmail_on_token_expiry']);
 		}
 	}
@@ -110,30 +83,17 @@ class WPLinkedInMUAdmin {
 		<p><em><?php _e('Select the user profile to use when the plugin cannot determine whose data to show.', 'wp-linkedin-mu'); ?></em></p><?php
 	}
 
-	function settings_field_connect_with_linkedin() {
-		$connect_with_linkedin = get_option('wp-linkedin-mu_connect_with_linkedin'); ?>
-		<label><input type="checkbox" name="wp-linkedin-mu_connect_with_linkedin"
-			value="1" <?php checked($connect_with_linkedin); ?> />&nbsp;
-			<?php _e('Check this option to allow users to register and log in using LinkedIn.', 'wp-linkedin') ?></label><?php
-	}
-
-	function settings_field_default_user_role() {
-		$default_user_role = get_option('wp-linkedin-mu_default_user_role'); ?>
-		<select id="wp-linkedin-mu_default_user_role" name="wp-linkedin-mu_default_user_role">
-   			<?php wp_dropdown_roles($default_user_role); ?>
-		</select>
-		<p><em><?php _e('Select the role that will be assigned to the users the first time they log in using LinkedIn.', 'wp-linkedin-mu'); ?></em></p><?php
-	}
-
 	function admin_notices() {
-		if (current_user_can('install_plugins')) {
-			if (!function_exists('wp_linkedin_connection')): ?>
-				<div class="error"><p><?php _e('The WP LinkedIn Multi-Users plugin needs the WP LinkedIn plugin to be installed and activated.', 'wp-linkedin-mu'); ?></p></div>
-			<?php elseif (version_compare(WP_LINKEDIN_VERSION, '2.5') < 0):
-				$format = __('The WP LinkedIn Multi-Users plugin requires at least version %s of the WP-LinkedIn plugin, current installed version is %s', 'wp-linkedin-mu');
-				$error = sprintf($format, '2.5', WP_LINKEDIN_VERSION); ?>
-				<div class="error"><p><?php echo $error; ?></p></div>
-			<?php endif;
+		if (!function_exists('wp_linkedin_connection')) {
+			echo '<div class="error" style="font-weight:bold;"><ul><li>';
+			echo __('The WP LinkedIn Multi-Users plugin needs the WP LinkedIn plugin to be installed and activated.', 'wp-linkedin-mu');
+			echo '</li></ul></div>';
+		} elseif (version_compare(WP_LINKEDIN_VERSION, '1.18') < 0) {
+			$format = __('The WP LinkedIn Multi-Users plugin requires at least version %s of the WP-LinkedIn plugin, current installed version is %s', 'wp-linkedin-mu');
+			$error = sprintf($format, '1.18', WP_LINKEDIN_VERSION);
+			echo '<div class="error" style="font-weight:bold;"><ul><li>';
+			echo $error;
+			echo '</li></ul></div>';
 		}
 	}
 
