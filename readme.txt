@@ -4,9 +4,10 @@ Contributors: cvedovini
 Donate link: http://paypal.me/vdvn
 Tags: linkedin,resume,recommendations,profile,multi-users
 Tested up to: 4.3.1
-Stable tag: 1.6.1
+Stable tag: 1.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
 
 == Description ==
 
@@ -91,20 +92,9 @@ This plugin follows the [standard WordPress installation method](http://codex.wo
 
 1. Upload the `wp-linkedin-mu` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Go to the plugin's settings page, enter your license key in the 'extensions'
-	tab and press the 'Save Changes' button
 
 
 == Changelog ==
-
-= Version 1.6.1 =
-- Small enhancements in error handling
-
-= Version 1.6 =
-- New actions `linkedin_connect_fields` and `linkedin_user_connected` to allow
-processing of the user profile just after a user connected using LinkedIn
-- When possible retrieve the user's avatar from LinkedIn
-- Bug fix when 'connect with LinkedIn' is activated
 
 = Version 1.5 =
 - Better admin notices
