@@ -18,7 +18,7 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 
 	protected function _delete_cache($key) {
 		global $wpdb;
-		$options = $wpdb->get_results("SELECT meta_key FROM {$wpdb->usermeta} WHERE user_id = '{$this->user_id}' AND meta_key LIKE '$key'" );
+		$options = $wpdb->get_col($wpdb->prepare("SELECT meta_key FROM {$wpdb->usermeta} WHERE user_id = %s AND meta_key LIKE %s", $this->user_id, $key));
 
 		if (empty($options)) {
 			return false;
