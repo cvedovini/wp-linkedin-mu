@@ -128,11 +128,11 @@ class WPLinkedInMUAdmin {
 	function admin_notices() {
 		if (current_user_can('install_plugins')) {
 			if (!function_exists('wp_linkedin_connection')): ?>
-				<div class="error"><p><?php _e('The WP LinkedIn Multi-Users plugin needs the WP LinkedIn plugin to be installed and activated.', 'wp-linkedin-mu'); ?></p></div>
+				<div class="notice notice-error"><p><?php _e('The WP LinkedIn Multi-Users plugin needs the WP LinkedIn plugin to be installed and activated.', 'wp-linkedin-mu'); ?></p></div>
 			<?php elseif (version_compare(WP_LINKEDIN_VERSION, '2.5') < 0):
 				$format = __('The WP LinkedIn Multi-Users plugin requires at least version %s of the WP-LinkedIn plugin, current installed version is %s', 'wp-linkedin-mu');
 				$error = sprintf($format, '2.5', WP_LINKEDIN_VERSION); ?>
-				<div class="error"><p><?php echo $error; ?></p></div>
+				<div class="notice notice-error"><p><?php echo $error; ?></p></div>
 			<?php endif;
 		}
 	}
