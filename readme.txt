@@ -3,8 +3,8 @@ Author: Claude Vedovini
 Contributors: cvedovini
 Donate link: http://paypal.me/vdvn
 Tags: linkedin,resume,recommendations,profile,multi-users
-Tested up to: 4.4
-Stable tag: 1.6.2
+Tested up to: 4.4.2
+Stable tag: 1.6.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,6 +96,9 @@ This plugin follows the [standard WordPress installation method](http://codex.wo
 
 
 == Changelog ==
+
+= Version 1.6.3 =
+- Forcing network activation on multi-site installs
 
 = Version 1.6.2 =
 - Bug fix in the token retrieval process

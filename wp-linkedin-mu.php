@@ -5,9 +5,10 @@ Plugin URI: http://vdvn.me/pga
 Description: This plugin is an extension to the WP-LinkedIn plugin that enables showing LinkedIn profiles, recommendations and network updates for any registered user.
 Author: Claude Vedovini
 Author URI: http://vdvn.me/
-Version: 1.6.2
+Version: 1.6.3
 Text Domain: wp-linkedin-mu
 Domain Path: /languages
+Network: True
 
 # The code in this plugin is free software; you can redistribute the code aspects of
 # the plugin and/or modify the code under the terms of the GNU Lesser General
@@ -25,7 +26,7 @@ Domain Path: /languages
 # See the GNU lesser General Public License for more details.
 */
 
-define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.6.2');
+define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.6.3');
 define('WP_LINKEDIN_MU_PLUGIN_NAME', 'WP LinkedIn Multi-Users');
 define('WP_LINKEDIN_MU_DOWNLOAD_ID', 2137);
 define('WP_LINKEDIN_MU_PLUGIN_BASENAME', plugin_basename(__FILE__));
