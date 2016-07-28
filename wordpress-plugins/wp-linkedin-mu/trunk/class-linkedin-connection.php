@@ -54,9 +54,14 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 					$user_id = $this->get_or_create_user($profile);
 					if ($user_id) {
 						$this->user_id = $user_id;
-						wp_logout();
-						wp_set_auth_cookie($this->user_id);
-						wp_set_current_user($this->user_id);
+
+						if (!is_user_logged_in()) {
+							wp_set_auth_cookie($this->user_id);
+							$user = get_user_by('id', $this->user_id);
+							do_action('wp_login', $user->user_login, $user);
+							wp_set_current_user($this->user_id);
+						}
+
 						$this->set_cache('oauthtoken', $retcode->access_token, $retcode->expires_in);
 						do_action('linkedin_user_connected', $profile);
 						$this->redirect($redirect_uri, 'success', __('Profile successfully updated', 'wp-linkedin-mu'));
