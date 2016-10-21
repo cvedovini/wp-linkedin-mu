@@ -44,6 +44,7 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 					$this->access_token = $retcode->access_token;
 					$fields = array('id', 'email-address');
 					$fields = apply_filters('linkedin_connect_fields', $fields);
+					$fields = array_unique($fields);
 					$profile = $this->get_profile(implode(',', $fields));
 
 					if (!$profile) {
