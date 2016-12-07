@@ -90,7 +90,6 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 						'meta_value' => $profile->id) );
 
 		if (count($user_by_id) > 0) {
-			update_user_meta($user_by_id[0]->ID, 'wp-linkedin-mu_profile_id', $profile->id);
 		    return $user_by_id[0]->ID;
 		}
 
@@ -103,9 +102,9 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 		}
 
 		$user_info = array(
-				'user_login'	=> $email,
+				'user_login'	=> apply_filters('linkedin_user_login', $email, $profile),
 				'user_email'	=> $email,
-				'user_pass'		=> wp_generate_password(15),
+				'user_pass'		=> apply_filters('linkedin_user_pass', wp_generate_password(15), $profile),
 				'role' 			=> get_option('wp-linkedin-mu_default_user_role', 'subscriber'));
 
 	    $user_id = wp_insert_user($user_info);
