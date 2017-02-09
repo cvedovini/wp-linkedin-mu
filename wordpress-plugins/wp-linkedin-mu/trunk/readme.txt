@@ -100,6 +100,10 @@ This plugin follows the [standard WordPress installation method](http://codex.wo
 = Version 1.7 =
 - Added filters 'linkedin_user_login' and 'linkedin_user_pass' to allow
 choosing the new users' login name and password
+- Modified the `linkedin_user_connected` action hook to accept a new parameter 
+that tells whether a new user was created or not. 
+- Added the `linkedin_user_redirect_uri` filter hook to filter the redirect uri
+after the user got connected.
 
 = Version 1.6.3 =
 - Forcing network activation on multi-site installs
