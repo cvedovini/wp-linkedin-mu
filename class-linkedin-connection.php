@@ -52,7 +52,10 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 						return;
 					}
 
-					$user_id = $this->get_or_create_user($profile);
+					$ret = $this->get_or_create_user($profile);
+					$user_id = $ret[0];
+					$user_is_new = $ret[1];
+					
 					if ($user_id) {
 						$this->user_id = $user_id;
 
@@ -64,7 +67,8 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 						}
 
 						$this->set_cache('oauthtoken', $retcode->access_token, $retcode->expires_in);
-						do_action('linkedin_user_connected', $profile);
+						do_action('linkedin_user_connected', $profile, $user_id, $user_is_new);
+						$redirect_uri = apply_filters('linkedin_user_redirect_uri', $redirect_uri, $profile, $user_id, $user_is_new);
 						$this->redirect($redirect_uri, 'success', __('Profile successfully updated', 'wp-linkedin-mu'));
 					} else {
 						$this->redirect($redirect_uri, 'error', __('Cannot find or create user', 'wp-linkedin-mu'));
@@ -80,17 +84,22 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 		}
 	}
 
+	/**
+	 * @param Object $profile
+	 * @return a tuple containing the user ID and a boolean indicating whether 
+	 * 			this user has just been created or not
+	 */
 	private function get_or_create_user($profile) {
 		if (is_user_logged_in()) {
 			$user_id = get_current_user_id();
-		    return $user_id;
+		    return array($user_id, false);
 		}
 
 		$user_by_id = get_users(array('meta_key' => 'wp-linkedin-mu_profile_id',
 						'meta_value' => $profile->id) );
 
 		if (count($user_by_id) > 0) {
-		    return $user_by_id[0]->ID;
+		    return array($user_by_id[0]->ID, false);
 		}
 
 		$email = $profile->emailAddress;
@@ -98,7 +107,7 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 		if (email_exists($email)) {
 		    $user = get_user_by('email', $email);
 		    update_user_meta($user->ID, 'wp-linkedin-mu_profile_id', $profile->id);
-		    return $user->ID;
+		    return array($user->ID, false);
 		}
 
 		$user_info = array(
@@ -109,7 +118,7 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 
 	    $user_id = wp_insert_user($user_info);
 	    update_user_meta($user_id, 'wp-linkedin-mu_profile_id', $profile->id);
-	    return $user_id;
+	    return array($user_id, true);
 	}
 
 	public function send_invalid_token_email() {
