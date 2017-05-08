@@ -1,0 +1,154 @@
+# Translation of WP LinkedIn Multi-Users in Catalan
+# This file is distributed under the same license as the WP LinkedIn Multi-Users package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2015-09-28 16:40:09+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: WP LinkedIn Multi-Users\n"
+
+#: class-admin.php:12
+msgid "Default user"
+msgstr "Usuari Default"
+
+#: class-admin.php:14
+msgctxt "On the settings page"
+msgid "Connect with LinkedIn"
+msgstr "Connecteu amb LinkedIn"
+
+#: class-admin.php:16
+msgid "Default user role"
+msgstr "Rol d&#39;usuari per defecte"
+
+#: class-admin.php:34
+msgid "Settings"
+msgstr "Configuració"
+
+#: class-admin.php:46
+msgid "The cache has been cleared."
+msgstr "La memòria cau s&#39;ha esborrat."
+
+#: class-admin.php:48
+msgid "LinkedIn Options"
+msgstr "Opcions de LinkedIn"
+
+#: class-admin.php:53
+msgid "Send mail on token expiry"
+msgstr "Enviar correu sobre caducitat del senyal"
+
+#: class-admin.php:58
+msgid "Check this option if you want the plugin to send you an email when the token has expired or is invalid."
+msgstr "Marqueu aquesta opció si voleu que el plugin per enviar-li un correu electrònic quan el testimoni ha caducat o no és vàlid."
+
+#: class-admin.php:64 wp-linkedin-mu.php:229
+msgid "Regenerate LinkedIn Access Token"
+msgstr "Regenerar LinkedIn accés Token"
+
+#: class-admin.php:65
+msgid "Clear the Cache"
+msgstr "Esborrar la memòria cau"
+
+#: class-admin.php:83
+msgid "None"
+msgstr "Cap"
+
+#: class-admin.php:88
+msgid "Select the user profile to use when the plugin cannot determine whose data to show."
+msgstr "Seleccioneu el perfil d&#39;usuari per utilitzar quan el connector no pot determinar les dades per mostrar."
+
+#: class-admin.php:95
+msgid "Check this option to allow users to register and log in using LinkedIn."
+msgstr "Marqueu aquesta opció per permetre als usuaris registrar i sessió usant LinkedIn."
+
+#: class-admin.php:103
+msgid "Select the role that will be assigned to the users the first time they log in using LinkedIn."
+msgstr "Seleccioneu el paper que s&#39;assigna als usuaris la primera vegada que iniciïn sessió en l&#39;ús de LinkedIn."
+
+#: class-admin.php:109
+msgid "The WP LinkedIn Multi-Users plugin needs the WP LinkedIn plugin to be installed and activated."
+msgstr "El WP LinkedIn complement Multi-usuari necessita el plugin WP LinkedIn per a ser instal · lat i activat."
+
+#: class-admin.php:111
+msgid "The WP LinkedIn Multi-Users plugin requires at least version %s of the WP-LinkedIn plugin, current installed version is %s"
+msgstr "El WP LinkedIn complement Multi-usuari requereix almenys la versió%s del connector WP-LinkedIn, versió actual instal·lada és%s"
+
+#: class-linkedin-connection.php:38
+msgid "Cannot fetch profile"
+msgstr "No es poden recuperar perfil"
+
+#: class-linkedin-connection.php:48
+msgid "Profile successfully updated"
+msgstr "Perfil actualitzat correctament"
+
+#: class-linkedin-connection.php:50
+msgid "Cannot find or create user"
+msgstr "No es pot trobar o crear usuari"
+
+#: class-linkedin-connection.php:56
+msgid "Invalid state"
+msgstr "Estat no vàlid"
+
+#: class-linkedin-connection.php:108
+msgid "Invalid or expired LinkedIn access token"
+msgstr "Token d&#39;accés no vàlid o expirat LinkedIn"
+
+#: class-linkedin-connection.php:110
+msgid "The access token for the WP LinkedIn plugin is either invalid or has expired, please click on the following link to renew it."
+msgstr "El testimoni d&#39;accés per al plugin WP LinkedIn és vàlid o ha caducat, si us plau feu clic al següent enllaç per renovar-lo."
+
+#: class-linkedin-connection.php:112
+msgid "This link will only be valid for a limited period of time."
+msgstr "Aquest enllaç només serà vàlida per un període limitat de temps."
+
+#: class-linkedin-connection.php:113
+msgid "-Thank you."
+msgstr "-Gràcies."
+
+#: wp-linkedin-mu.php:171 wp-linkedin-mu.php:346
+msgid "Cannot find a user whose %1$s is %2$s"
+msgstr "No es pot trobar un usuari el%1\\$s és%2\\$s"
+
+#: wp-linkedin-mu.php:203
+msgctxt "On the login page"
+msgid "Connect with LinkedIn"
+msgstr "Connecteu amb LinkedIn"
+
+#: wp-linkedin-mu.php:214 wp-linkedin-mu.php:266
+msgid "The access token has been successfully updated."
+msgstr "El testimoni d&#39;accés s&#39;ha actualitzat correctament."
+
+#: wp-linkedin-mu.php:220 wp-linkedin-mu.php:272
+msgid "An error has occured while updating the access token, please try again."
+msgstr "Hi ha hagut un error en actualitzar el token d&#39;accés, si us plau intenti de nou."
+
+#: wp-linkedin-mu.php:281
+msgctxt "On the login button"
+msgid "Connect with LinkedIn"
+msgstr "Connecteu amb LinkedIn"
+
+#: wp-linkedin-mu.php:334
+msgid "You must provide one of the following attributes for the li_user shortcode to work: %s."
+msgstr "Vostè ha de proporcionar un dels següents atributs per al codi curt li_user per treballar:%s."
+
+#. Plugin Name of the plugin/theme
+msgid "WP LinkedIn Multi-Users"
+msgstr "WP LinkedIn Multi-usuari"
+
+#. Plugin URI of the plugin/theme
+msgid "http://vdvn.me/pga"
+msgstr "http://vdvn.me/pga"
+
+#. Description of the plugin/theme
+msgid "This plugin is an extension to the WP-LinkedIn plugin that enables showing LinkedIn profiles, recommendations and network updates for any registered user."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Claude Vedovini"
+msgstr "Claude Vedovini"
+
+#. Author URI of the plugin/theme
+msgid "http://vdvn.me/"
+msgstr "http://vdvn.me/"
