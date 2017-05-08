@@ -3,8 +3,8 @@ Author: Claude Vedovini
 Contributors: cvedovini
 Donate link: http://paypal.me/vdvn
 Tags: linkedin,resume,recommendations,profile,multi-users
-Tested up to: 4.6.1
-Stable tag: 1.7
+Tested up to: 4.7
+Stable tag: 1.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -77,11 +77,6 @@ If `redir` is not provided the user will be redirected to the current page.
 
 NOTE: If the user is already connected the button will not show up.
 
-**Deprecated**
-
-The `[li_user]` shortcode has been deprecated and the recommended method
-is now to use the extended attributes to explicitly set the user.
-
 License purchase includes 1 year of product support and updates.
 
 
@@ -96,6 +91,9 @@ This plugin follows the [standard WordPress installation method](http://codex.wo
 
 
 == Changelog ==
+
+= Version 1.8 =
+- Added support for `[li_profile_field]` shortcode
 
 = Version 1.7 =
 - Added filters 'linkedin_user_login' and 'linkedin_user_pass' to allow

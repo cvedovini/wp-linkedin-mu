@@ -92,6 +92,7 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 	private function get_or_create_user($profile) {
 		if (is_user_logged_in()) {
 			$user_id = get_current_user_id();
+			update_user_meta($user_id, 'wp-linkedin-mu_profile_id', $profile->id);
 		    return array($user_id, false);
 		}
 

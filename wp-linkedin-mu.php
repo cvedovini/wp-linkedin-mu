@@ -5,7 +5,7 @@ Plugin URI: http://vdvn.me/pga
 Description: This plugin is an extension to the WP-LinkedIn plugin that enables showing LinkedIn profiles, recommendations and network updates for any registered user.
 Author: Claude Vedovini
 Author URI: http://vdvn.me/
-Version: 1.7
+Version: 1.8
 Text Domain: wp-linkedin-mu
 Domain Path: /languages
 Network: True
@@ -26,7 +26,7 @@ Network: True
 # See the GNU lesser General Public License for more details.
 */
 
-define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.7');
+define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.8');
 define('WP_LINKEDIN_MU_PLUGIN_NAME', 'WP LinkedIn Multi-Users');
 define('WP_LINKEDIN_MU_DOWNLOAD_ID', 2137);
 define('WP_LINKEDIN_MU_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -75,14 +75,12 @@ class WPLinkedInMUPlugin {
 		add_filter('shortcode_atts_li_updates', array(&$this, 'filter_userid'), 10, 3);
 		add_filter('shortcode_atts_li_card', array(&$this, 'filter_userid'), 10, 3);
 		add_filter('shortcode_atts_li_profile', array(&$this, 'filter_userid'), 10, 3);
-
+		add_filter('shortcode_atts_li_profile_field', array(&$this, 'filter_userid'), 10, 3);
+		
 		if (WP_LINKEDIN_MU_CONNECT_WITH_LINKEDIN) {
 			add_action('login_form', array(&$this, 'show_login_button'));
 			add_filter('pre_get_avatar_data', array(&$this, 'get_avatar_url'), 10, 2);
 		}
-
-		// @deprecated
-		add_shortcode('li_user', 'wp_linkedin_mu_set_user');
 	}
 
 	function linkedin_scope($scope) {
@@ -167,10 +165,10 @@ class WPLinkedInMUPlugin {
 			$user = get_user_by($field, $value);
 
 			if ($user) {
-				if (LI_DEBUG) echo '<!-- for user: ' . $user->display_name . ' -->';
+				wp_linkedin_message('for user: ' . $user->display_name);
 				$GLOBALS['li_user_id'] = $user->ID;
-			} else if (LI_DEBUG) {
-				printf(__('Cannot find a user whose %1$s is %2$s', 'wp-linkedin-mu'), $key, $value);
+			} else {
+				wp_linkedin_message(sprintf(__('Cannot find a user whose %1$s is %2$s', 'wp-linkedin-mu'), $key, $value), 'info');
 			}
 		}
 
@@ -281,7 +279,7 @@ function wp_linkedin_mu_token_button($atts=array()) {
 
 	// Only if the user is currently logged-in
 	if (is_user_logged_in()) {
-		$atts = shortcode_atts(array(
+		$atts = wp_linkedin_shortcode_atts(array(
 				'button_label' => __('Regenerate LinkedIn Access Token', 'wp-linkedin-mu'),
 				'before_error' => '<p class="error">',
 				'after_error' => '</p>',
@@ -314,7 +312,7 @@ function wp_linkedin_mu_token_button($atts=array()) {
 }
 
 
-function wp_linkedin_mu_login_button($atts=array()) {
+function wp_linkedin_mu_login_button($atts='') {
 	if (isset($_REQUEST['oauth_status']) && isset($_REQUEST['source']) &&
 			$_REQUEST['source'] == 'login-button') {
 		$output[] = wp_linkedin_mu_filter_url();
@@ -336,7 +334,7 @@ function wp_linkedin_mu_login_button($atts=array()) {
 
 	// Only if the user is not currently logged-in
 	if (!is_user_logged_in()) {
-		$atts = shortcode_atts(array(
+		$atts = wp_linkedin_shortcode_atts(array(
 				'button_label' => _x('Connect with LinkedIn', 'On the login button', 'wp-linkedin-mu'),
 				'before_error' => '<p class="error">',
 				'after_error' => '</p>',
@@ -384,44 +382,4 @@ function wp_linkedin_mu_filter_url() {
 	}
 </script>
 EOT;
-}
-
-/*******************************************************************************
- *
- * All the following is now deprecated...
- *
- ******************************************************************************/
-
-function wp_linkedin_mu_set_user($atts, $content='') {
-	$atts = shortcode_atts(array(
-			'id' => '',
-			'name' => '',
-			'login' => '',
-			'email' => ''
-	), $atts, 'li_user');
-
-	$keys = array('id' => 'id', 'name' => 'login', 'email' => 'email');
-	$user = false;
-
-	foreach($keys as $k => $f) {
-		if (isset($atts[$k]) && !empty($atts[$k])) {
-			$user = get_user_by($f, $atts[$k]);
-			break;
-		}
-	}
-
-	if (!isset($v)) {
-		return sprintf(_('You must provide one of the following attributes for the li_user shortcode to work: %s.', 'wp-linkedin-mu'),
-				implode(', ', array_keys($keys)));
-	}
-
-	if ($user) {
-		$GLOBALS['li_user_id'] = $user->ID;
-		if (LI_DEBUG) echo '<!-- for user: ' . $user->display_name . ' -->';
-		$content = do_shortcode($content);
-		unset($GLOBALS['li_user_id']);
-		return $content;
-	}
-
-	return sprintf(__('Cannot find a user whose %1$s is %2$s', 'wp-linkedin-mu'), $k, $atts[$k]);
 }
