@@ -4,7 +4,7 @@ Contributors: cvedovini
 Donate link: http://paypal.me/vdvn
 Tags: linkedin,resume,recommendations,profile,multi-users
 Tested up to: 4.7
-Stable tag: 1.8
+Stable tag: 1.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,9 +92,6 @@ This plugin follows the [standard WordPress installation method](http://codex.wo
 
 == Changelog ==
 
-= Version 1.8 =
-- Added support for `[li_profile_field]` shortcode
-
 = Version 1.7 =
 - Added filters 'linkedin_user_login' and 'linkedin_user_pass' to allow
 choosing the new users' login name and password
@@ -102,6 +99,7 @@ choosing the new users' login name and password
 that tells whether a new user was created or not. 
 - Added the `linkedin_user_redirect_uri` filter hook to filter the redirect uri
 after the user got connected.
+- Added support for `[li_profile_field]` shortcode
 
 = Version 1.6.3 =
 - Forcing network activation on multi-site installs
