@@ -3,8 +3,8 @@ Author: Claude Vedovini
 Contributors: cvedovini
 Donate link: http://paypal.me/vdvn
 Tags: linkedin,resume,recommendations,profile,multi-users
-Tested up to: 4.7
-Stable tag: 1.7
+Tested up to: 4.8
+Stable tag: 1.7.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,9 @@ This plugin follows the [standard WordPress installation method](http://codex.wo
 
 
 == Changelog ==
+
+= Version 1.7.1 =
+- Fixing how the default user is retrieved when no id is given in a shortcode 
 
 = Version 1.7 =
 - Added filters 'linkedin_user_login' and 'linkedin_user_pass' to allow

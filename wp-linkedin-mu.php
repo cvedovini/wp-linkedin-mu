@@ -5,7 +5,7 @@ Plugin URI: http://vdvn.me/pga
 Description: This plugin is an extension to the WP-LinkedIn plugin that enables showing LinkedIn profiles, recommendations and network updates for any registered user.
 Author: Claude Vedovini
 Author URI: http://vdvn.me/
-Version: 1.7
+Version: 1.7.1
 Text Domain: wp-linkedin-mu
 Domain Path: /languages
 Network: True
@@ -26,7 +26,7 @@ Network: True
 # See the GNU lesser General Public License for more details.
 */
 
-define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.7');
+define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.7.1');
 define('WP_LINKEDIN_MU_PLUGIN_NAME', 'WP LinkedIn Multi-Users');
 define('WP_LINKEDIN_MU_DOWNLOAD_ID', 2137);
 define('WP_LINKEDIN_MU_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -90,11 +90,9 @@ class WPLinkedInMUPlugin {
 
 	function linkedin_connection($conn) {
 		require_once 'class-linkedin-connection.php';
-		$user_id = false;
+		$user_id = get_option('wp-linkedin-mu_default_user');
 
-		if (is_admin() || get_query_var('oauth') == 'linkedin') {
-			$user_id = get_current_user_id();
-		} elseif (isset($GLOBALS['li_user_id'])) {
+		if (isset($GLOBALS['li_user_id'])) {
 			// This one just takes precedence over everything
 			$user_id = $GLOBALS['li_user_id'];
 			unset($GLOBALS['li_user_id']);
@@ -110,8 +108,6 @@ class WPLinkedInMUPlugin {
 
 				if ($curauth) $user_id = $curauth->ID;
 			}
-
-			if (!$user_id) $user_id = get_option('wp-linkedin-mu_default_user');
 		}
 
 		return new WPLinkedInMUConnection($user_id);
