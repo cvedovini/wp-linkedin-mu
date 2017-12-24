@@ -4,7 +4,7 @@ Contributors: cvedovini
 Donate link: http://paypal.me/vdvn
 Tags: linkedin,resume,recommendations,profile,multi-users
 Tested up to: 4.8
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,15 @@ This plugin follows the [standard WordPress installation method](http://codex.wo
 
 
 == Changelog ==
+
+= Version 1.7.2 =
+- Fixing a bug in the buttons' shortcodes where the attributes were ignored
+- Fixing a bug that prevented cache entries to be properly deleted
+- Fixing a bug in the dashboard where the default user is always chosen instead 
+of the logged in user
+- Fixing a bug introduced in 1.7.1 that assigns the logged in user's 
+authentication token to the default user when not using the 
+"Connect with LinkedIn" option
 
 = Version 1.7.1 =
 - Fixing how the default user is retrieved when no id is given in a shortcode 
