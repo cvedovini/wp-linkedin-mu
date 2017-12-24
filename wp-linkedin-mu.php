@@ -5,7 +5,7 @@ Plugin URI: http://vdvn.me/pga
 Description: This plugin is an extension to the WP-LinkedIn plugin that enables showing LinkedIn profiles, recommendations and network updates for any registered user.
 Author: Claude Vedovini
 Author URI: http://vdvn.me/
-Version: 1.7.1
+Version: 1.7.2
 Text Domain: wp-linkedin-mu
 Domain Path: /languages
 Network: True
@@ -26,7 +26,7 @@ Network: True
 # See the GNU lesser General Public License for more details.
 */
 
-define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.7.1');
+define('WP_LINKEDIN_MU_PLUGIN_VERSION', '1.7.2');
 define('WP_LINKEDIN_MU_PLUGIN_NAME', 'WP LinkedIn Multi-Users');
 define('WP_LINKEDIN_MU_DOWNLOAD_ID', 2137);
 define('WP_LINKEDIN_MU_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -92,7 +92,9 @@ class WPLinkedInMUPlugin {
 		require_once 'class-linkedin-connection.php';
 		$user_id = get_option('wp-linkedin-mu_default_user');
 
-		if (isset($GLOBALS['li_user_id'])) {
+		if (is_admin() || get_query_var('oauth') == 'linkedin') {
+	        $user_id = get_current_user_id();
+        } elseif (isset($GLOBALS['li_user_id'])) {
 			// This one just takes precedence over everything
 			$user_id = $GLOBALS['li_user_id'];
 			unset($GLOBALS['li_user_id']);
@@ -113,7 +115,7 @@ class WPLinkedInMUPlugin {
 		return new WPLinkedInMUConnection($user_id);
 	}
 
-	function filter_userid($out, $pairs, $atts) {
+	function filter_userid($atts) {
 		$keys = array('id' => 'id', 'name' => 'login', 'email' => 'email');
 		$user = false;
 
@@ -168,7 +170,7 @@ class WPLinkedInMUPlugin {
 			}
 		}
 
-		return $out;
+		return $atts;
 	}
 
 	function smarter_load_textdomain($mofile, $domain) {
@@ -254,6 +256,16 @@ class WPLinkedInMUPlugin {
 }
 
 function wp_linkedin_mu_token_button($atts=array()) {
+	$atts = wp_linkedin_shortcode_atts(array(
+			'button_label' => __('Regenerate LinkedIn Access Token', 'wp-linkedin-mu'),
+			'before_error' => '<p class="error">',
+			'after_error' => '</p>',
+			'before_success' => '<p class="info">',
+			'after_success' => '</p>',
+			'redir' => $_SERVER["REQUEST_URI"]
+	), $atts, 'li_token_button');
+	extract($atts);
+
 	if (isset($_REQUEST['oauth_status']) && isset($_REQUEST['source']) &&
 			$_REQUEST['source'] == 'token-button') {
 		$output[] = wp_linkedin_mu_filter_url();
@@ -275,16 +287,6 @@ function wp_linkedin_mu_token_button($atts=array()) {
 
 	// Only if the user is currently logged-in
 	if (is_user_logged_in()) {
-		$atts = wp_linkedin_shortcode_atts(array(
-				'button_label' => __('Regenerate LinkedIn Access Token', 'wp-linkedin-mu'),
-				'before_error' => '<p class="error">',
-				'after_error' => '</p>',
-				'before_success' => '<p class="info">',
-				'after_success' => '</p>',
-				'redir' => $_SERVER["REQUEST_URI"]
-		), $atts, 'li_token_button');
-		extract($atts);
-
 		$GLOBALS['li_user_id'] = get_current_user_id();
 		$linkedin = wp_linkedin_connection();
 
@@ -309,6 +311,16 @@ function wp_linkedin_mu_token_button($atts=array()) {
 
 
 function wp_linkedin_mu_login_button($atts='') {
+	$atts = wp_linkedin_shortcode_atts(array(
+			'button_label' => _x('Connect with LinkedIn', 'On the login button', 'wp-linkedin-mu'),
+			'before_error' => '<p class="error">',
+			'after_error' => '</p>',
+			'before_success' => '<p class="info">',
+			'after_success' => '</p>',
+			'redir' => $_SERVER["REQUEST_URI"]
+	), $atts, 'li_login_button');
+	extract($atts);
+
 	if (isset($_REQUEST['oauth_status']) && isset($_REQUEST['source']) &&
 			$_REQUEST['source'] == 'login-button') {
 		$output[] = wp_linkedin_mu_filter_url();
@@ -330,16 +342,6 @@ function wp_linkedin_mu_login_button($atts='') {
 
 	// Only if the user is not currently logged-in
 	if (!is_user_logged_in()) {
-		$atts = wp_linkedin_shortcode_atts(array(
-				'button_label' => _x('Connect with LinkedIn', 'On the login button', 'wp-linkedin-mu'),
-				'before_error' => '<p class="error">',
-				'after_error' => '</p>',
-				'before_success' => '<p class="info">',
-				'after_success' => '</p>',
-				'redir' => $_SERVER["REQUEST_URI"]
-		), $atts, 'li_login_button');
-		extract($atts);
-
 		$linkedin = wp_linkedin_connection();
 
 		// Add a query arg so we know where we are coming from
@@ -363,7 +365,7 @@ function wp_linkedin_mu_login_button($atts='') {
 }
 
 function wp_linkedin_mu_filter_url() {
-	$removable_query_args = apply_filters('removable_query_args', array('source'));
+	$removable_query_args = apply_filters('removable_query_args', array('source', 'oauth_status', 'oauth_message'));
 
 	if (empty( $removable_query_args)) return;
 

@@ -24,7 +24,7 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 			return false;
 		} else {
 			foreach ($options as $option) {
-				delete_user_meta($this->user_id, $option->meta_key);
+				delete_user_meta($this->user_id, $option);
 			}
 
 			return true;
