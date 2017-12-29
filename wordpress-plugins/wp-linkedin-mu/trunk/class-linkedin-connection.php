@@ -138,7 +138,7 @@ class WPLinkedInMUConnection extends WPLinkedInConnection {
 			$message .= "\n" . __('-Thank you.', 'wp-linkedin-mu');
 
 			$sent = wp_mail($user_email, $subject, $message, $header);
-			$this->update_user_meta('wp-linkedin_invalid_token_mail_sent', $sent);
+			$this->set_cache('invalid_token_mail_sent', $sent);
 		}
 	}
 
