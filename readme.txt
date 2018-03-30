@@ -19,43 +19,43 @@ the post or page. If the plugin cannot decide whose data to show (e.g. on the
 home page or archive pages) you can configure it to either show nothing or a
 specific user's data.
 
-This plugin also extends the `[li_profile]` shortcode and other shortcodes with
+This plugin also extends the *[li_profile]* shortcode and other shortcodes with
 a new set of attributes that allow to specify which user's profile to show.
 
 For example:
 
-- `[li_profile id="1"]` will show the profile of the user with id 1.
-- `[li_profile name="admin"]` will show the profile of the user whose username
-is `admin`.
-- `[li_profile email="admin@example.com"]` will show the profile of the user
-whose email is `admin@example.com`.
+- *[li_profile id="1"]* will show the profile of the user with id 1.
+- *[li_profile name="admin"]* will show the profile of the user whose username
+is *admin*.
+- *[li_profile email="admin@example.com"]* will show the profile of the user
+whose email is *admin@example.com*.
 
 **Keywords**
 
-When specifying the `id` attribute, you can also indicate keywords instead of
+When specifying the *id* attribute, you can also indicate keywords instead of
 explicit ids, the id will be calculated automatically depending on the keyword:
 
-- `author`: is the author of the post, page or archive.
-- `current`: is the currently logged in user (if no user is logged in an error
+- *author*: is the author of the post, page or archive.
+- *current*: is the currently logged in user (if no user is logged in an error
 message will be displayed).
-- `bp_displayed`: support for BuddyPress, shows the currently displayed
+- *bp_displayed*: support for BuddyPress, shows the currently displayed
 BuddyPress profile.
-- `bp_current`: support for BuddyPress, shows the currently logged in
+- *bp_current*: support for BuddyPress, shows the currently logged in
 BuddyPress user.
 
 **Regenerate Button**
 
-Additionally the plugin also provides the `[li_token_button]` shortcode that
+Additionally the plugin also provides the *[li_token_button]* shortcode that
 displays a "Regenerate Token" button on any post or page. Optional attributes
 for that shortcode are:
 
-- `button_label`: the label on the button.
-- `before_error` and `after_error`: HTML code to put before and after an error
+- *button_label*: the label on the button.
+- *before_error* and *after_error*: HTML code to put before and after an error
 message.
-- `before_success` and `after_success`: HTML code to put before and after a
+- *before_success* and *after_success*: HTML code to put before and after a
 success message.
-- `redir`: the URL where the user should be redirected to in case of success.
-If `redir` is not provided the user will be redirected to the current page.
+- *redir*: the URL where the user should be redirected to in case of success.
+If *redir* is not provided the user will be redirected to the current page.
 
 NOTE: If the user is not connected the button will not show up.
 
@@ -63,17 +63,17 @@ NOTE: If the user is not connected the button will not show up.
 
 You can now configure the plugin to allow users to login to your website using
 their LinkedIn account. The plugin will show a link on the WordPress log in page
-and you can also use the `[li_login_button]` shortcode to display a "Connect with LinkedIn"
+and you can also use the *[li_login_button]* shortcode to display a "Connect with LinkedIn"
 button anywhere of the site.  Optional attributes
 for that shortcode are:
 
-- `button_label`: the label on the button.
-- `before_error` and `after_error`: HTML code to put before and after an error
+- *button_label*: the label on the button.
+- *before_error* and *after_error*: HTML code to put before and after an error
 message.
-- `before_success` and `after_success`: HTML code to put before and after a
+- *before_success* and *after_success*: HTML code to put before and after a
 success message.
-- `redir`: the URL where the user should be redirected to in case of success.
-If `redir` is not provided the user will be redirected to the current page.
+- *redir*: the URL where the user should be redirected to in case of success.
+If *redir* is not provided the user will be redirected to the current page.
 
 NOTE: If the user is already connected the button will not show up.
 
@@ -84,7 +84,7 @@ License purchase includes 1 year of product support and updates.
 
 This plugin follows the [standard WordPress installation method](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins):
 
-1. Upload the `wp-linkedin-mu` folder to the `/wp-content/plugins/` directory
+1. Upload the *wp-linkedin-mu* folder to the */wp-content/plugins/* directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Go to the plugin's settings page, enter your license key in the 'extensions'
 	tab and press the 'Save Changes' button
@@ -107,11 +107,11 @@ authentication token to the default user when not using the
 = Version 1.7 =
 - Added filters 'linkedin_user_login' and 'linkedin_user_pass' to allow
 choosing the new users' login name and password
-- Modified the `linkedin_user_connected` action hook to accept a new parameter 
+- Modified the *linkedin_user_connected* action hook to accept a new parameter 
 that tells whether a new user was created or not. 
-- Added the `linkedin_user_redirect_uri` filter hook to filter the redirect uri
+- Added the *linkedin_user_redirect_uri* filter hook to filter the redirect uri
 after the user got connected.
-- Added support for `[li_profile_field]` shortcode
+- Added support for *[li_profile_field]* shortcode
 
 = Version 1.6.3 =
 - Forcing network activation on multi-site installs
@@ -123,7 +123,7 @@ after the user got connected.
 - Small enhancements in error handling
 
 = Version 1.6 =
-- New actions `linkedin_connect_fields` and `linkedin_user_connected` to allow
+- New actions *linkedin_connect_fields* and *linkedin_user_connected* to allow
 processing of the user profile just after a user connected using LinkedIn
 - When possible retrieve the user's avatar from LinkedIn
 - Bug fix when 'connect with LinkedIn' is activated
@@ -144,10 +144,10 @@ processing of the user profile just after a user connected using LinkedIn
 - Fixing updater code
 
 = Version 1.3 =
-- `[li_user]` shortcode is now deprecated in favor of additional attributes to
+- *[li_user]* shortcode is now deprecated in favor of additional attributes to
 the standards WP-LinkedIn shortcodes.
-- The `id` attribute now accepts keywords such as `author`, `current`,
- `bp_displayed`, `bp_current` (see description for details).
+- The *id* attribute now accepts keywords such as *author*, *current*,
+ *bp_displayed*, *bp_current* (see description for details).
 
 
 = Version 1.2 =
